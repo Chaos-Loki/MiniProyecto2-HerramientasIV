@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "main",
+    "ckeditor",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -111,6 +114,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'media')
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -121,3 +130,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CKEDITOR_UPLOAD_PATH = "BlogUploads/"  # Carpeta donde se guardarán las imágenes y archivos subidos.
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',  # Personalizar la barra de herramientas
+        'height': 300,
+        'width': 800,
+    },
+}
