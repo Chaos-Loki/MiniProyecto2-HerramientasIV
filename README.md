@@ -1,6 +1,6 @@
 # MiniProyecto2-HerramientasIV
 MiniProyecto No 2 de Herramientas Aplicadas IV
-Creación de un proyecto de Django que permita la creación de una tienda online por: Grupo Hellsing
+Proyecto de Django que permita la creación de una tienda online por: Grupo Hellsing
 
 Funcionalidades requeridas:
 
