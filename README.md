@@ -1,6 +1,6 @@
 # MiniProyecto2-HerramientasIV
 MiniProyecto No 2 de Herramientas Aplicadas IV
-Creación de un proyecto de DJango que permita la creación de posts de blogs por: Grupo Hellsing
+Creación de un proyecto de Django que permita la creación de una tienda online por: Grupo Hellsing
 
 Funcionalidades requeridas:
 
