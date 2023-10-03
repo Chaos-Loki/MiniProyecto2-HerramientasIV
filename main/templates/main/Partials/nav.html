@@ -19,11 +19,16 @@ Start Navigation Bar
             <div class="navCol">
                 <ul>
                 <li><a href="{%url 'main:home'%}">Home</a></li>
-                <li><a href="{%url 'main:portfolios' %}">Portfolio</a></li>
-                <li><a href="{% url 'main:blogs' %}">Blog</a></li>
-                <li><a href="{% url 'main:login' %}">Login</a></li>
+                <li><a href="{%url 'main:store' %}">Products</a></li>
+                <li><a href="{% url 'main:categories' %}">Categories</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'main:add-products' %}">Add Products</a></li>
+                <li><a href="{% url 'main:profile' %}">Profile</a></li>
                 <li><a href="{% url 'main:logout' %}">Logout</a></li>
-                <li><a href="{%url 'main:contact'%}">Contact</a></li>
+                {% else %}
+                <li><a href="{% url 'main:register' %}">Register</a></li>
+                <li><a href="{% url 'main:login' %}">Login</a></li>
+                {% endif %}
                 </ul>
             </div>
             </div>
