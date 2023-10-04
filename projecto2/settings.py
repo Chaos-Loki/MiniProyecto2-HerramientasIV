@@ -66,7 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "resume_demo.context_processors.project_context",
+                "projecto2.context_processors.project_context",
             ],
         },
     },
