@@ -1,14 +1,18 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.views import generic
+from . forms import CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.cache import cache_control
 from django.urls import reverse
+from .models import (
+        UserProfile,
+        Product,
+    )
 
 # Create your views here.
 
@@ -58,3 +62,15 @@ class IndexView(generic.TemplateView):
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             return context
+        
+
+class ProductView(generic.ListView):
+    model = Product
+    template_name = "main/store.html"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+class ProductDetailView(generic.DetailView):
+    model = Product
+    template_name = "main/product.html"
