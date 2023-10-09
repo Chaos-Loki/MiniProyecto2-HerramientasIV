@@ -20,10 +20,9 @@ Start Navigation Bar
                 <ul>
                 <li><a href="{%url 'main:home'%}">Home</a></li>
                 <li><a href="{%url 'main:store' %}">Products</a></li>
-                <li><a href="{% url 'main:categories' %}">Categories</a></li>
+                <li><a href="{% url 'main:category' %}">Categories</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'main:add-products' %}">Add Products</a></li>
-                <li><a href="{% url 'main:profile' %}">Profile</a></li>
+                <li><a href="{% url 'main:profiles' %}">Profile</a></li>
                 <li><a href="{% url 'main:logout' %}">Logout</a></li>
                 {% else %}
                 <li><a href="{% url 'main:register' %}">Register</a></li>
