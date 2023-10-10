@@ -26,8 +26,8 @@ class Categories(models.Model):
         verbose_name = 'Category'
         ordering = ["name"]
         
-    name = models.CharField(max_length=200, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, null=True)
+    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=500, default='generic description')
     image = models.ImageField(upload_to="media")
     
     def save(self, *args, **kwargs):
@@ -52,7 +52,7 @@ class Product(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, default='generic description')
     details = RichTextField(blank=True, null=True)
     slug = models.SlugField(null=True, blank=True)
     image = models.ImageField(upload_to="product")

@@ -16,7 +16,8 @@ from .models import (
         Product,
         Categories,
     )
-
+from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import UpdateView, DeleteView
 # Create your views here.
 
 #Funcion de Registro
@@ -59,6 +60,7 @@ def logoutUser(request):
     logout(request)
     return redirect('main:login')
 
+#funcion de crear producto
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='main:login')
 def ProductCreatePage(request):
@@ -84,6 +86,27 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             context = super().get_context_data(**kwargs)
             return context
         
+
+#Vista de Edicion de Producto
+
+class ProductEditView (LoginRequiredMixin, UpdateView):
+    model = Product
+    fields = ['name', 'description', 'details', 'image', 'category']
+    template_name = 'main/edit-products.html'
+    
+    def get_success_url(self):
+        pk =self.kwargs['pk']
+        return reverse_lazy('product', kwargs={'pk': pk})
+
+#Vista de Eliminacion de Producto
+
+class ProductDeleteView (LoginRequiredMixin, DeleteView):
+    model = Product
+    template_name = 'main/delete-products.html'
+    success_url= reverse_lazy('store')
+    
+
+
 # @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 # @login_required(login_url='main:login')
 # def blogCreatePage(request):

@@ -1,8 +1,6 @@
 from dataclasses import field, fields
 from django import forms
 from .models import Product
-#from .models import ContactProfile, Blog
-#from .models import ContactProfile, BlogPost
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
