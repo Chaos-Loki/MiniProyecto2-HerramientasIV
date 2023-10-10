@@ -29,6 +29,8 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=500, default='generic description')
     image = models.ImageField(upload_to="media")
+    slug = models.SlugField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     
     def save(self, *args, **kwargs):
         if not self.id:

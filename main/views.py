@@ -77,6 +77,23 @@ def ProductCreatePage(request):
         form = ProductPostForm()
     return render(request, "main/add-products.html", {'form':form})
 
+#funcion de crear categoria
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='main:login')
+def CategoryCreatePage(request):
+    if request.method == 'POST':
+        form = CategoryPostForm(request.POST, request.FILES)	
+        if form.is_valid():
+            entrada = form.save()
+            messages.success(request, "Se añadio categoria satisfactoriamente!")
+            return redirect('/')
+        else:
+            messages.error(request, "Hubo un error... verifique e intentelo de nuevo.")
+            form = CategoryPostForm()
+    else:
+        form = CategoryPostForm()
+    return render(request, "main/add-categories.html", {'form':form})
+
 #Vista de Perfil - mixin es usado para protegerlo
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -124,7 +141,7 @@ class ProductDeleteView (LoginRequiredMixin, DeleteView):
 #-------------------------------------------------------------------------------------
 #Vistas de Categorias
 
-class ProductView(generic.ListView):
+class CategoryView(generic.ListView):
     model = Category
     template_name = "main/categories.html"
 
@@ -139,7 +156,7 @@ class CategoryDetailView(generic.DetailView):
 
 class CategoryEditView (LoginRequiredMixin, UpdateView):
     model = Category
-    fields = ['name', 'description', 'details', 'image', 'category']
+    fields = ['name', 'description', 'image']
     template_name = 'main/edit-category.html'
     
     def get_success_url(self):
