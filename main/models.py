@@ -20,7 +20,7 @@ class UserProfile(models.Model):
 #debe usarse tambien en caso de añadir como de mostrar en pantalla
 #debe de tener nombre, descripcion, precio, imagen y categoria
 
-class Categories(models.Model):
+class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
         verbose_name = 'Category'
@@ -29,6 +29,8 @@ class Categories(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=500, default='generic description')
     image = models.ImageField(upload_to="media")
+    slug = models.SlugField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     
     def save(self, *args, **kwargs):
         if not self.id:
@@ -57,7 +59,7 @@ class Product(models.Model):
     slug = models.SlugField(null=True, blank=True)
     image = models.ImageField(upload_to="product")
     is_active = models.BooleanField(default=True)
-    category = models.OneToOneField(Categories, default=False, on_delete=models.CASCADE)
+    category = models.OneToOneField(Category, default=False, on_delete=models.CASCADE)
         
     def save(self, *args, **kwargs):
         if not self.id:

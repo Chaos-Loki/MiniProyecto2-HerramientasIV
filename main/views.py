@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.views import generic
 from django.views.generic import TemplateView
-from . forms import CreateUserForm, ProductPostForm
+from . forms import CreateUserForm, ProductPostForm, CategoryPostForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import (
         UserProfile,
         Product,
-        Categories,
+        Category,
     )
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import UpdateView, DeleteView
@@ -77,6 +77,23 @@ def ProductCreatePage(request):
         form = ProductPostForm()
     return render(request, "main/add-products.html", {'form':form})
 
+#funcion de crear categoria
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='main:login')
+def CategoryCreatePage(request):
+    if request.method == 'POST':
+        form = CategoryPostForm(request.POST, request.FILES)	
+        if form.is_valid():
+            entrada = form.save()
+            messages.success(request, "Se añadio categoria satisfactoriamente!")
+            return redirect('/')
+        else:
+            messages.error(request, "Hubo un error... verifique e intentelo de nuevo.")
+            form = CategoryPostForm()
+    else:
+        form = CategoryPostForm()
+    return render(request, "main/add-categories.html", {'form':form})
+
 #Vista de Perfil - mixin es usado para protegerlo
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -87,40 +104,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             return context
         
 
-#Vista de Edicion de Producto
-
-class ProductEditView (LoginRequiredMixin, UpdateView):
-    model = Product
-    fields = ['name', 'description', 'details', 'image', 'category']
-    template_name = 'main/edit-products.html'
-    
-    def get_success_url(self):
-        pk =self.kwargs['pk']
-        return reverse_lazy('product', kwargs={'pk': pk})
-
-#Vista de Eliminacion de Producto
-
-class ProductDeleteView (LoginRequiredMixin, DeleteView):
-    model = Product
-    template_name = 'main/delete-products.html'
-    success_url= reverse_lazy('store')
-    
-
-
-# @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-# @login_required(login_url='main:login')
-# def blogCreatePage(request):
-# 	if request.method == 'POST':
-# 		form = BlogPostForm(request.POST, request.FILES)	
-# 		if form.is_valid():
-# 			entrada = form.save()
-# 			messages.success(request, "Se añadio post satisfactoriamente!")
-# 			return redirect('/')
-# 	else:
-# 		form = BlogPostForm()
-# 	return render(request, "main/blog-create.html", {'form':form}
-
-
+#-------------------------------------------------------------------------------------
 #Vistas de Productos
 
 class ProductView(generic.ListView):
@@ -133,6 +117,61 @@ class ProductView(generic.ListView):
 class ProductDetailView(generic.DetailView):
     model = Product
     template_name = "main/product.html"
+
+#----Vista de Edicion de Producto
+
+class ProductEditView (LoginRequiredMixin, UpdateView):
+    model = Product
+    fields = ['name', 'description', 'details', 'image', 'category']
+    template_name = 'main/edit-products.html'
+    
+    def get_success_url(self):
+        pk =self.kwargs['pk']
+        return reverse_lazy('product', kwargs={'pk': pk})
+
+#----Vista de Eliminacion de Producto
+
+class ProductDeleteView (LoginRequiredMixin, DeleteView):
+    model = Product
+    template_name = 'main/delete-products.html'
+    success_url= reverse_lazy('store')
+    
+    
+    
+#-------------------------------------------------------------------------------------
+#Vistas de Categorias
+
+class CategoryView(generic.ListView):
+    model = Category
+    template_name = "main/categories.html"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+class CategoryDetailView(generic.DetailView):
+    model = Category
+    template_name = "main/category.html"
+
+#----Vista de Edicion de Categorias
+
+class CategoryEditView (LoginRequiredMixin, UpdateView):
+    model = Category
+    fields = ['name', 'description', 'image']
+    template_name = 'main/edit-category.html'
+    
+    def get_success_url(self):
+        pk =self.kwargs['pk']
+        return reverse_lazy('product', kwargs={'pk': pk})
+
+#----Vista de Eliminacion de Categorias
+
+class CategoryDeleteView (LoginRequiredMixin, DeleteView):
+    model = Category
+    template_name = 'main/delete-category.html'
+    success_url= reverse_lazy('store')
+    
+
+
 
 #Vista de Index - Defecto
 
