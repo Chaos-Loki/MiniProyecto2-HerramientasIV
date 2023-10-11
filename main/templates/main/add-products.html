@@ -31,17 +31,24 @@ END script blocks
 Start Content
 ================================= -->
 {% block content %}
-<div class="innerPageBannerCol">
-    <div class="container">
-        <div class="bannerContent">
-            <h1 class="mb-3">Add Products</h1>
+<section>
+    <div style="height: 330px;">
+        <div class="innerPageBannerCol">
+            <div class="container">
+                <div class="bannerContent">
+                    <h1 class="mb-3">Add Products</h1>
+                </div>
+                <p></p>
+                <hr>
+                <p></p>
+                <button class="btn mb-3 mr-3 btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l-4 4 4 4M16 12H9"/></svg>
+                    <span><a href="{%url 'main:profiles'%}">
+                        Go Back
+                        </a></span></button>            
+            </div>
         </div>
-        <button class="btn mb-3 mr-3 btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l-4 4 4 4M16 12H9"/></svg>
-            <span><a href="{%url 'main:profiles'%}">
-                Go Back
-                </a></span></button>            
-        <p></p>
     </div>
+</section>
     {% comment %} SECCION DE FORMULARIO {% endcomment %}
         <div class="container-xxl">
             <section style="background-color: #eee;">

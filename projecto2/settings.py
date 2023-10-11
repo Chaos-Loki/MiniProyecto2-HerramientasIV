@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Application definition
-
+#django cleanup elimina imagenes para campos que son eliminados. Si el valor es cambiado, el antiguo archivo es eliminado
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main",
     "ckeditor",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 
