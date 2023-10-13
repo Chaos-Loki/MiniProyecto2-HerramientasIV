@@ -8,7 +8,7 @@ urlpatterns = [
     path('register/', views.registerPage, name="register"),
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutUser, name="logout"),
-    path('', views.IndexView.as_view(), name="home"),
+    path('', views.HomeView.as_view(), name="home"),
         #EN SUCESION, ESTOS SON PERFILES Y TIENDA/LISTA DE PRODUCTOS
     path('profiles/', views.ProfileView.as_view(), name="profiles"),
     path('categories/', views.CategoryView.as_view(), name="categories"),
@@ -22,4 +22,9 @@ urlpatterns = [
     path('edit-products/<int:pk>', views.ProductEditView.as_view(), name="edit-products"),
     path('delete-products/<int:pk>', views.ProductDeleteView.as_view(), name="delete-products"),
     path('product/<slug:slug>', views.ProductDetailView.as_view(), name="product"),	
+    
+        #URL para pruebas de HTML y CSS nuevos
+    path('test1/', views.TestView1.as_view(), name="test1"),	
+    path('test2/', views.TestView2.as_view(), name="test2"),	
+    path('test3/', views.TestView3.as_view(), name="test3"),	
 ]

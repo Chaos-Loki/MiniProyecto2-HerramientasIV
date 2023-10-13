@@ -6,7 +6,7 @@ from . forms import CreateUserForm, ProductPostForm, CategoryPostForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.cache import cache_control
 from django.urls import reverse
@@ -86,6 +86,7 @@ def CategoryCreatePage(request):
         if form.is_valid():
             entrada = form.save()
             messages.success(request, "Se añadio categoria satisfactoriamente!")
+            return redirect('/')
         else:
             messages.error(request, "Hubo un error... verifique e intentelo de nuevo.")
             form = CategoryPostForm()
@@ -143,11 +144,10 @@ class ProductDeleteView (LoginRequiredMixin, DeleteView):
 class CategoryView(generic.ListView):
     model = Category
     template_name = "main/categories.html"
-    paginate_by = 10
-    
+
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
-    
+
 class CategoryDetailView(generic.DetailView):
     model = Category
     template_name = "main/category.html"
@@ -157,30 +157,18 @@ class CategoryDetailView(generic.DetailView):
 class CategoryEditView (LoginRequiredMixin, UpdateView):
     model = Category
     fields = ['name', 'description', 'image']
-    template_name = 'main/edit-categories.html'
-    success_url= reverse_lazy('main:categories')
+    template_name = 'main/edit-category.html'
     
-    # def get_successful_url(self):
-    #     return HttpResponse("Categoria ha sido modificada satisfactoriamente!")
-        
-    # success_message='Categoria ha sido satisfactoriamente modificada'
-    
-    # def form_valid(self, form):
-    #     pk =self.kwargs['pk']
-    #     messages.success(self.request, f"Categoria ha sido modificada satisfactoriamente!")
-    #     #return super().form_valid(form)
-    #     return HttpResponseRedirect(self.get_success_url())
-    
-    # def get_successful_url(self):
-    #     return reverse()
-    # success_url= reverse_lazy('main:edit-categories', kwargs={'pk': int})
+    def get_success_url(self):
+        pk =self.kwargs['pk']
+        return reverse_lazy('product', kwargs={'pk': pk})
 
 #----Vista de Eliminacion de Categorias
 
 class CategoryDeleteView (LoginRequiredMixin, DeleteView):
     model = Category
-    template_name = 'main/delete-categories.html'
-    success_url= reverse_lazy('main:categories')
+    template_name = 'main/delete-category.html'
+    success_url= reverse_lazy('store')
     
 
 
@@ -193,4 +181,39 @@ class IndexView(generic.TemplateView):
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             return context
+
+
+
+#Vista de Home - Defecto
+
+class HomeView(generic.TemplateView):
+        template_name = "main/Home.html"
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            return context
         
+#-----------------------------------------------------------
+
+#Vistas de prueba para HTML y CSS nuevos
+
+class TestView1(generic.TemplateView):
+        template_name = "HTML_5/index.html"
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            return context
+        
+class TestView2(generic.TemplateView):
+        template_name = "HTML_5/elements.html"
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            return context
+        
+class TestView3(generic.TemplateView):
+        template_name = "HTML_5/generic.html"
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            return context
