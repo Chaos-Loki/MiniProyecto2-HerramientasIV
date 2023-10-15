@@ -71,6 +71,7 @@ Start Content
                 </div>
             </div>
             <div class="col-md-2"  style="font-size:5px">
+                {% if request.user.is_authenticated %}
                 <p></p>
                 <a href="{% url 'main:edit-categories' obj.pk %}">
                 <button type="button" class="btn btn-success">
@@ -87,7 +88,14 @@ Start Content
                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"></path>
                     </svg>
                 </button>
-                </a> 
+                </a>
+                {% endif %}
+                <div class="row">
+                    <p style="height: 10px;"></p> 
+                    <a href="{% url 'main:category' obj.pk %}" >
+                        <button type="button" class="btn btn-primary" style="font-size:15px">Read More</button>
+                    </a>
+                </div> 
             </div>
             <p></p>
         </div>
@@ -95,7 +103,29 @@ Start Content
 
         {% endfor %}
 </section>
-
+<p style="height: 10px;"></p>
+<section>
+    <div class="container">
+        <center>
+                <span class="badge rounded-pill bg-light text-dark"><p style=" margin: auto; font-size: 15px;">Page {{ page_obj.number }} of {{page_obj.paginator.num_pages}}</p>
+                </span> 
+            <p style="height: 10px"></p>
+            <nav aria-label="page navigation">
+                <ul style="margin-left:auto; margin-right: auto;"class="pager">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>  
+                        {% endif %}
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next </a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}"> last&raquo;</a></li> 
+                        {% endif %}
+                </ul>    
+            </nav>
+        </center>
+    </div>
+</section>
 <!-- ================================
 End Content
 ================================= -->

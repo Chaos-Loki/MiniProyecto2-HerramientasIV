@@ -8,6 +8,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
+from django.core.paginator import (
+    Paginator,
+    EmptyPage,
+    PageNotAnInteger,
+)
 from django.views.decorators.cache import cache_control
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -67,7 +72,9 @@ def ProductCreatePage(request):
     if request.method == 'POST':
         form = ProductPostForm(request.POST, request.FILES)	
         if form.is_valid():
-            entrada = form.save()
+            entrada = form.save(commit=False)
+            entrada.user = request.user
+            entrada.save()
             messages.success(request, "Se añadio producto satisfactoriamente!")
             return redirect('/')
         else:
@@ -143,14 +150,26 @@ class ProductDeleteView (LoginRequiredMixin, DeleteView):
 class CategoryView(generic.ListView):
     model = Category
     template_name = "main/categories.html"
-    paginate_by = 10
+    paginate_by = 5
     
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
     
 class CategoryDetailView(generic.DetailView):
     model = Category
-    template_name = "main/category.html"
+    template_name = "main/store.html"
+
+    def categories_m(request):
+        query_Set = models.Category.objects.all()
+        page = request.GET.get('page', 1)
+        paginator = Paginator(query_Set, 20)
+        try:
+            cat = paginator.page(page)
+        except PageNotAnInteger:
+            cat = paginator.page(1)
+        except EmptyPage:
+            cat = paginator.page(paginator.num_pages)
+        return render(request, 'main/store.html', {'categories': cat})
 
 #----Vista de Edicion de Categorias
 

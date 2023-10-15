@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 from django_currentuser.db.models import CurrentUserField
+from django.conf import settings
 # Create your models here.
 
 class UserProfile(models.Model):
@@ -43,6 +44,10 @@ class Category(models.Model):
     def get_absolute_url(self):
         return f"/category/{self.slug}"
     
+    @property
+    def get_products(self):
+        return Products.objects.filter(categories__title=self.title)
+    
 
 class Product(models.Model):
     
@@ -51,13 +56,13 @@ class Product(models.Model):
         verbose_name = 'Product'
         ordering = ["category"]
     
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=500, default='generic description')
     details = RichTextField(blank=True, null=True)
     slug = models.SlugField(null=True, blank=True)
-    image = models.ImageField(upload_to="product")
+    image = models.ImageField(upload_to="media")
     is_active = models.BooleanField(default=True)
     category = models.OneToOneField(Category, default=False, on_delete=models.CASCADE)
         
