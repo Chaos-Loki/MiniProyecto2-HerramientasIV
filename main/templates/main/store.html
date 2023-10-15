@@ -30,7 +30,16 @@ END script blocks
 <!-- ================================
 Start Content
 ================================= -->
+<h1> asfdasdfas </h1>
 {% block content %}
+{% for category in categories %}
+<h1> {{category}} </h1>
+
+{% for product in category.products_set.all %}
+    <p> {{product}} </p>
+{% endfor %}
+
+{% endfor %}
 
 {% comment %} <section>
     <div class="innerPageBannerCol">

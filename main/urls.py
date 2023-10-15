@@ -12,7 +12,8 @@ urlpatterns = [
         #EN SUCESION, ESTOS SON PERFILES Y TIENDA/LISTA DE PRODUCTOS
     path('profiles/', views.ProfileView.as_view(), name="profiles"),
     path('categories/', views.CategoryView.as_view(), name="categories"),
-    path('store/', views.ProductView.as_view(), name="store"),
+    path('category/<int:pk>', views.CategoryDetailView.as_view(), name="category"),
+    #path('store/', views.ProductView.as_view(), name="store"),
         #SECCION DE CATEGORIAS, adicion, edicion y eliminacion
     path('add-categories/', views.CategoryCreatePage, name="add-categories"),
     path('edit-categories/<int:pk>', views.CategoryEditView.as_view(), name="edit-categories"),

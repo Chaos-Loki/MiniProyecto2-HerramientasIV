@@ -15,7 +15,7 @@ class ProductPostForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('user','name', 'description', 'details', 'image', 'category')
+        fields = ('name', 'description', 'details', 'image', 'category')
         
 
 class CategoryPostForm(forms.ModelForm):

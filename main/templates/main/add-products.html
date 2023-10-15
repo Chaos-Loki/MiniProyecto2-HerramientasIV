@@ -72,34 +72,15 @@ Start Content
                         {% endif %}
                     </center>
                     <div class="form-group">
-                        {% comment %} NOMBRE {% endcomment %}
-                        {{form.name.label_tag}}
-                        {{form.name}}
-                    </div>
-                    <div class="form-group">
-                        {% comment %} DESCRIPCION {% endcomment %}
-                        {{form.description.label_tag}}
-                        {{form.description}}
-                    </div>
-                    <div class="form-group">
-                        {% comment %} IMAGEN {% endcomment %}
-                        {{form.image.label_tag}}
-                        {{form.image}}
-                    </div>
-                    <p></p>
-                    <div class="form-group">
-                        {% comment %} DETALLES {% endcomment %}
-                        {% load static %}
-                        {{form.details.label_tag}}
-                        {{form.details}}
+                        {{form.as_p}}
+                        {{form.media}}
                         <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
                         <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
                     </div>
-                    {{form.category.label_tag}}
-                    {{form.category}}
+                
                 </div>
                 <center>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Add Products</button>
                 <p></p>
                 </center>
             </form>
