@@ -76,7 +76,6 @@ def ProductCreatePage(request):
             entrada.user = request.user
             entrada.save()
             messages.success(request, "Se añadio producto satisfactoriamente!")
-            return redirect('/')
         else:
             messages.error(request, "Hubo un error... verifique e intentelo de nuevo.")
             form = ProductPostForm()
@@ -122,8 +121,25 @@ class ProductView(generic.ListView):
 
 class ProductDetailView(generic.DetailView):
     model = Product
-    template_name = "main/product.html"
+    template_name = "main/product-detail.html"
+    context_object_name = 'product'
 
+class ProductListView(generic.ListView):
+    model = Product
+    template_name = "product.html"
+    context_object_name = 'products'
+    
+    def get_queryset(self):
+        category_slug = self.kwargs['category_slug']
+        category = Category.objects.get(slug=category_slug)
+        return Product.objects.filter(category=category)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_slug = self.kwargs['category_slug']
+        context['category'] = Category.objects.get(slug=category_slug)
+        return context
+    
 #----Vista de Edicion de Producto
 
 class ProductEditView (LoginRequiredMixin, UpdateView):
@@ -155,21 +171,26 @@ class CategoryView(generic.ListView):
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
     
+# def product_by_category(request, pk):
+#     category = Category.objects.get(pk=pk)
+#     data= Product.objects.filter(category=category).order_by('-id')
+#     return render(request, 'main/category.html',{'data':data})
+
+#         paginator = Paginator(query_Set, 20)
+#         try:
+#             cat = paginator.page(page)
+#         except PageNotAnInteger:
+#             cat = paginator.page(1)
+#         except EmptyPage:
+#             cat = paginator.page(paginator.num_pages)
+#         return render(request, 'main/store.html', {'categories': cat})
+    
+#---intento no 1
 class CategoryDetailView(generic.DetailView):
     model = Category
-    template_name = "main/store.html"
-
-    def categories_m(request):
-        query_Set = models.Category.objects.all()
-        page = request.GET.get('page', 1)
-        paginator = Paginator(query_Set, 20)
-        try:
-            cat = paginator.page(page)
-        except PageNotAnInteger:
-            cat = paginator.page(1)
-        except EmptyPage:
-            cat = paginator.page(paginator.num_pages)
-        return render(request, 'main/store.html', {'categories': cat})
+    template_name = "main/category.html"
+    context_object_name = 'category'
+    #paginate_by = 10
 
 #----Vista de Edicion de Categorias
 
@@ -179,20 +200,6 @@ class CategoryEditView (LoginRequiredMixin, UpdateView):
     template_name = 'main/edit-categories.html'
     success_url= reverse_lazy('main:categories')
     
-    # def get_successful_url(self):
-    #     return HttpResponse("Categoria ha sido modificada satisfactoriamente!")
-        
-    # success_message='Categoria ha sido satisfactoriamente modificada'
-    
-    # def form_valid(self, form):
-    #     pk =self.kwargs['pk']
-    #     messages.success(self.request, f"Categoria ha sido modificada satisfactoriamente!")
-    #     #return super().form_valid(form)
-    #     return HttpResponseRedirect(self.get_success_url())
-    
-    # def get_successful_url(self):
-    #     return reverse()
-    # success_url= reverse_lazy('main:edit-categories', kwargs={'pk': int})
 
 #----Vista de Eliminacion de Categorias
 

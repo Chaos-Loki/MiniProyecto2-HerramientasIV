@@ -13,7 +13,6 @@ urlpatterns = [
     path('profiles/', views.ProfileView.as_view(), name="profiles"),
     path('categories/', views.CategoryView.as_view(), name="categories"),
     path('category/<int:pk>', views.CategoryDetailView.as_view(), name="category"),
-    #path('store/', views.ProductView.as_view(), name="store"),
         #SECCION DE CATEGORIAS, adicion, edicion y eliminacion
     path('add-categories/', views.CategoryCreatePage, name="add-categories"),
     path('edit-categories/<int:pk>', views.CategoryEditView.as_view(), name="edit-categories"),
@@ -22,5 +21,5 @@ urlpatterns = [
     path('add-products/', views.ProductCreatePage, name="add-products"),
     path('edit-products/<int:pk>', views.ProductEditView.as_view(), name="edit-products"),
     path('delete-products/<int:pk>', views.ProductDeleteView.as_view(), name="delete-products"),
-    path('product/<slug:slug>', views.ProductDetailView.as_view(), name="product"),	
+    path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name="product-detail"),	
 ]
