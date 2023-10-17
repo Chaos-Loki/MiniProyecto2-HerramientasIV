@@ -30,43 +30,18 @@ END script blocks
 <!-- ================================
 Start Content
 ================================= -->
-<h1> asfdasdfas </h1>
+{% comment %} TITUTLO {% endcomment %}
 {% block content %}
-{% for category in categories %}
-<h1> {{category}} </h1>
 
-{% for product in category.products_set.all %}
-    <p> {{product}} </p>
-{% endfor %}
-
-{% endfor %}
-
-{% comment %} <section>
-    <div class="innerPageBannerCol">
-        <div class="container">
-            <div class="row g-4 g-md-3  align-items-center">
-            <div class="col-md-6">
-                <div class="bannerContent">
-                <h1 class="xlTitle pb-md-3">{{object.name|title}}</h1>
-                </div>
-            </div>
-            </div>
-            <div class="row">
-            <div class="col-md-auto">
-                <div class="authorCol">
-                <h4 class="smTitle pb-3">{{object.author|title}}</h4>
-                </div>
-            </div>
-            <div class="col-md">
-                <h4 class="smTitle pb-3">{{object.timestamp.date}}</h4>
-            </div>
-            </div>
-        </div>
-        </div>
-</section> {% endcomment %}
 
 <!-- ================================
 End Content
 ================================= -->
 {%endblock%} 
     
+
+
+
+
+
+

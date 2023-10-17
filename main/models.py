@@ -64,15 +64,15 @@ class Product(models.Model):
     slug = models.SlugField(null=True, blank=True)
     image = models.ImageField(upload_to="media")
     is_active = models.BooleanField(default=True)
-    category = models.OneToOneField(Category, default=False, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, default=False, on_delete=models.CASCADE)
         
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return f'{self.name} {self.category}'
 
     def get_absolute_url(self):
         return f"/product/{self.slug}"
