@@ -56,23 +56,23 @@ Start Content
         <div class="container-xxl">
             <section style="background-color: #eee;">
             <!-- AQUI EMPIEZA EL EDITOR -->
-            <center>
-                <p>
-                    <h3 class="mb-3">Are You Sure? </h3>
-                </p>
-            <form method="post" enctype="multipart/form-data">
-                <div class="container-fluid">
-            
-                    <h5 class="mb-3"> ENG: You are about to delete this category. This action cannot be undone
-                    <p></p>
-                        ESP: Estas a punto de eliminar una categoria. Esta acción no se puede deshacer.
-                    </h5>
+                <center>
+                    <p>
+                        <h3 class="mb-3">Are You Sure? </h3>
+                    </p>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="container-fluid">
+                
+                        <h5 class="mb-3"> ENG: You are about to delete this category. This action cannot be undone
+                        <p></p>
+                            ESP: Estas a punto de eliminar una categoria. Esta acción no se puede deshacer.
+                        </h5>
 
-                    {% csrf_token %}
-                    
-                <button type="submit" class="btn btn-danger">DELETE CATEGORY</button>
-                <p></p>
-                </div>
+                        {% csrf_token %}
+                        
+                    <button type="submit" class="btn btn-danger">DELETE CATEGORY</button>
+                    <p></p>
+                    </div>
                 </center>
             </form>
     {% comment %} {% endcomment %} 

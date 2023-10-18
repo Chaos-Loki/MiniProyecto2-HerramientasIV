@@ -52,6 +52,22 @@ Start Content
             <form method="post" enctype="multipart/form-data">
                 <div class="container-fluid">
                     {% csrf_token %}
+                    <center>
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-success" role="alert">
+                            {{ message }}
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </center>
+                    <p style="height: 10px;"></p>
                     <div class="form-group">
                         {{form.as_p}}
                         {{form.media}}
