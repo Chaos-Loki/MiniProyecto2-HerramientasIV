@@ -64,8 +64,9 @@ class Product(models.Model):
     slug = models.SlugField(null=True, blank=True)
     image = models.ImageField(upload_to="media")
     is_active = models.BooleanField(default=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=1.00)
     category = models.ForeignKey(Category, default=False, on_delete=models.CASCADE)
-        
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)

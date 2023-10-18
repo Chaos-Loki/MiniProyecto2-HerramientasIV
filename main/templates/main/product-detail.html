@@ -30,10 +30,123 @@ END script blocks
 <!-- ================================
 Start Content
 ================================= -->
-{% comment %} TITUTLO {% endcomment %}
+{% comment %} BOTON DE REGRESO {% endcomment %}
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<section>
+   
+</section>
+
+<section>
+{% comment %} TITULO DEL PRODUCTO {% endcomment %}
+<div style="height: auto;">
+    <div class="container-fluid"  style="background-color: #eee;">
+        <p style="height: 90px"></p>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="{{object.image.url}}" alt="..." class="pImg">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="mb-3">{{product.name|safe}}</h4>
+                                    <hr>
+                                    <span class="text-muted">
+                                        <div style="text-size: 1px;">Published by: {{product.user|title}}</div>
+                                        <div style="text-size: 1px;">Date of Publication: {{product.timestamp.date}}</div>
+                                    </span>
+                                    <div id="accordion">
+                                        <div>
+                                                <div class="card-header" id="headingOne">
+                                                <h5 class="mb-0">
+                                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none;">
+                                                    Details <span class="float-right" style="font-weight: bold;">&#x25BC;</span>
+                                                    </button>
+                                                </h5>
+                                                </div>
+                                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                                <div class="card-body" style="font-size: 14px;">
+                                                    {{product.details|safe}}
+                                                </div>
+                                                </div>
+                                                <div class="card-header" id="headingPrice">
+                                                    <h5 class="mb-0">
+                                                        <button class="btn btn-link collapsed" style="text-decoration: none;">
+                                                        Available at: <span class="float-right" style="font-weight: bold;">$ {{product.price|safe}}</span>
+                                                        </button>
+                                                    </h5>
+                                                </div>
+                                                {% comment %} <div class="card-header" id="headingTwo">
+                                                    <h5 class="mb-0">
+                                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="text-decoration: none;">
+                                                        Details <span class="float-right" style="font-weight: bold;">&#x25BC;</span>
+                                                        </button>
+                                                    </h5>
+                                                    </div>
+                                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                    <div class="card-body" style="font-size: 14px;">
+                                                        {{product.details|safe}}
+                                                    </div>
+                                                    </div> {% endcomment %}
+                                            </div>
+                                        </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <p></p>
+                <hr> 
+            </div>
+        </div>
 
 
+        <div style="height: 10px;">
+                <div class="container">
+                    
+                </div>
+        </div>
+{% comment %} SECCION DE CUERPO {% endcomment %}
+
+        <div class="innerPageBannerCol">
+            <div class="container">
+              <div class="row g-4 g-md-3  align-items-center">
+                <div class="col-md-6">
+                  <div class="bannerContent">
+                    <h1 class="xlTitle pb-md-3">{{object.name|title}}</h1>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-auto">
+                  <div class="authorCol">
+                    <h4 class="smTitle pb-3">{{object.user|title}}</h4>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <h4 class="smTitle pb-3">{{object.timestamp.date}}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+    </div>
+
+
+    
+</div>
+</section>
+
+
+  
 <!-- ================================
 End Content
 ================================= -->

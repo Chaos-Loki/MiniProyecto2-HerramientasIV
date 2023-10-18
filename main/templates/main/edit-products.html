@@ -32,16 +32,18 @@ Start Content
 ================================= -->
 {% block content %}
 <section>
-    <div class="innerPageBannerCol">
-        <div class="container"> 
-            <div class="bannerContent">
-                <h1 class="mb-3">Edit Products</h1>
+    <div style="height: 330px;">
+        <div class="innerPageBannerCol">
+            <div class="container"> 
+                <div class="bannerContent">
+                    <h1 class="mb-3">Edit Products</h1>
+                </div>
+                <a href="/category/{{object.category.id}}"><button class="btn mb-3 mr-3 btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l-4 4 4 4M16 12H9"/></svg>
+                <span>
+                        Go Back To Products
+                        </span></button></a>      
+                <p></p>
             </div>
-            <button class="btn mb-3 mr-3 btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l-4 4 4 4M16 12H9"/></svg>
-                <span><a href="{%url 'product' object.pk%}">
-                    Go Back
-                    </a></span></button>            
-            <p></p>
         </div>
     </div>
 </section>
@@ -67,36 +69,18 @@ Start Content
                         {% endfor %}
                         {% endif %}
                     </center>
+                    <p style="height: 10px;"></p>
                     <div class="form-group">
-                        {% comment %} NOMBRE {% endcomment %}
-                        {{form.name.label_tag}}
-                        {{form.name}}
-                    </div>
-                    <div class="form-group">
-                        {% comment %} DESCRIPCION {% endcomment %}
-                        {{form.description.label_tag}}
-                        {{form.description}}
-                    </div>
-                    <div class="form-group">
-                        {% comment %} IMAGEN {% endcomment %}
-                        {{form.image.label_tag}}
-                        {{form.image}}
-                    </div>
-                    <p></p>
-                    <div class="form-group">
-                        {% comment %} DETALLES {% endcomment %}
-                        {% load static %}
-                        {{form.details.label_tag}}
-                        {{form.details}}
+                        {{form.as_p}}
+                        {{form.media}}
                         <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
                         <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
                     </div>
-                    {{form.category.label_tag}}
-                    {{form.category}}
                 </div>
                 <center>
                 <button type="submit" class="btn btn-primary">Edit Product</button>
                 <p></p>
+                <p style="height: 10px;"></p>
                 </center>
             </form>
     {% comment %} {% endcomment %} 
