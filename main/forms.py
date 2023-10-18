@@ -1,6 +1,6 @@
 from dataclasses import field, fields
 from django import forms
-from .models import Product, Category
+from .models import Product, Category, Review
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -24,4 +24,14 @@ class CategoryPostForm(forms.ModelForm):
         model = Category
         fields = ('name', 'description', 'image')
         
-
+class ReviewPostForm(forms.ModelForm):
+    score = forms.DecimalField(widget=forms.NumberInput(attrs={
+    'min': 0.0, 
+    'max': 5.0,
+    'step': 0.1
+    }))
+    
+    class Meta:
+        model = Review
+        fields = ('title','score', 'content')
+        

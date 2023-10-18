@@ -30,19 +30,30 @@ END script blocks
 <!-- ================================
 Start Content
 ================================= -->
-{% comment %} BOTON DE REGRESO {% endcomment %}
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<section>
-   
-</section>
+
+    <section>
+        <div style="height: 150px;">
+            <div class="innerPageBannerCol">
+                <div class="container">
+                    <div class="bannerContent">
+                        <h1 class="mb-3"></h1>
+                    </div>
+                    <p></p>
+                    <p></p>         
+                </div>
+            </div>
+        </div>
+    </section>
 
 <section>
 {% comment %} TITULO DEL PRODUCTO {% endcomment %}
 <div style="height: auto;">
     <div class="container-fluid"  style="background-color: #eee;">
         <p style="height: 90px"></p>
+        
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -107,46 +118,86 @@ Start Content
             </div>
         </div>
 
-
-        <div style="height: 10px;">
+{% comment %} SECCION DE Review {% endcomment %}
+    <section>
+        <div style="height: auto;">
                 <div class="container">
-                    
+                    <div >
+                        <div class="jumbotron" style="height:auto">
+                            <h2>
+                                Write your opinions on this product!
+                            </h2>
+                            {% if request.user.is_authenticated %}
+                                <p>
+                                    <a class="btn btn-primary btn-large" href="{% url 'main:add-reviews' product.pk %} "> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
+                                    </svg> Write a review </a>
+                                </p>
+                            {% else %}
+                                <p>
+                                    You must be logged in to give a review...
+                                </p>
+                            {% endif %} 
+                            <div class="row" style="background-color: #eee;">
+                                {% if product.review_set.all %}
+                                <div>
+                                    {% for review in product.review_set.all %}
+                                    <hr>
+                                    <div class="col-md-4">
+                                        <p></p>
+                                        <div class="container-sm">
+                                            <div class="pCol">
+                                                <h4 class="mb-3">{{review.title|safe}}
+                                                </h4>
+                                                <p class="text-muted" >User: <span class="text-muted" style="font-weight: bold;">{{review.user|safe}}</span></p>
+                                                {{review.content|safe}}
+                                                <h5>{{review.score|safe}} / 5.0
+                                                </5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2"  style="font-size:5px">
+                                            <p style="height: 10px;"></p>
+                                            {% if request.user.is_authenticated and review.user == request.user %}
+                                            <p></p>
+                                            <a href="{% url 'main:edit-reviews' review.pk %}">
+                                            <button type="button" class="btn btn-success">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
+                                                </svg>  
+                                            </button>
+                                            </a>
+                                            <a href="{% url 'main:delete-reviews' review.pk %}">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"></path>
+                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"></path>
+                                                </svg>
+                                            </button>
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p style="height: 5px;"></p>
+                                    <p class="text-center">No reviews yet for this product.</p>
+                                {% endif %}
+                                
+                        </div>
+                    </div>
                 </div>
         </div>
-{% comment %} SECCION DE CUERPO {% endcomment %}
 
-        <div class="innerPageBannerCol">
-            <div class="container">
-              <div class="row g-4 g-md-3  align-items-center">
-                <div class="col-md-6">
-                  <div class="bannerContent">
-                    <h1 class="xlTitle pb-md-3">{{object.name|title}}</h1>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-auto">
-                  <div class="authorCol">
-                    <h4 class="smTitle pb-3">{{object.user|title}}</h4>
-                  </div>
-                </div>
-                <div class="col-md">
-                  <h4 class="smTitle pb-3">{{object.timestamp.date}}</h4>
-                </div>
-              </div>
-            </div>
-          </div>
+    </section>
 
-
-    </div>
-
-
-    
 </div>
 </section>
 
-
-  
 <!-- ================================
 End Content
 ================================= -->
