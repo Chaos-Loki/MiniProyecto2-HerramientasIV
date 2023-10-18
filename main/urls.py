@@ -21,5 +21,10 @@ urlpatterns = [
     path('add-products/', views.ProductCreatePage, name="add-products"),
     path('edit-products/<int:pk>', views.ProductEditView.as_view(), name="edit-products"),
     path('delete-products/<int:pk>', views.ProductDeleteView.as_view(), name="delete-products"),
-    path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name="product-detail"),	
+    path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name="product-detail"),
+        #SECCION DE Reviews - añadir, edicion, eliminacion y producto
+    path('add-reviews/<int:pk>', views.ReviewCreatePage, name="add-reviews"),
+    path('edit-reviews/<int:pk>', views.ReviewEditView.as_view(), name="edit-reviews"),
+    path('delete-reviews/<int:pk>', views.ReviewDeleteView.as_view(), name="delete-reviews"),
+    # path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name="product-detail"),		
 ]
