@@ -252,7 +252,7 @@ class ReviewDetailView(generic.DetailView):
 class ReviewEditView (LoginRequiredMixin, UpdateView):
     model = Review
     context_object_name = 'review'
-    fields = ['title','score', 'content']
+    form_class = ReviewPostForm
     template_name = 'main/edit-reviews.html'
     success_message = 'Se edito tu review satisfactoriamente!'
     error_message = 'Hubo un error... verifique e intentelo de nuevo.'
